@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500&family=Poppins&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,700&family=Ubuntu:ital,wght@0,400;0,500;1,300;1,500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+* > *{
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background: #dcdce6;
+    background-image: url('./assets/background.jpg');
+}
