@@ -22,23 +22,23 @@ function usernameVerify(error = {}, values) {
 
 // validate password
 export async function passwordValidate(values) {
-    const error= passwordVerify({},values);
+    const error = passwordVerify({}, values);
     return error;
 }
 
 // validate password
 
-function passwordVerify(error={},values){
-    const specialChars= /[`~!@#$%^&*()-_+{}[\]\\|,.//?;':"]/
+function passwordVerify(error = {}, values) {
+    const specialChars = /[`~!@#$%^&*()-_+{}[\]\\|,.//?;':"]/
 
-    if(!values.password){
-        error.password=toast.error("Password Required...!");
-    }else if(values.password.includes(" ")){
-        error.password=toast.error("Wrong Password...!");
-    }else if(values.password.length <4){
-        error.password=toast.error("Password Must Be More Than 4 Character Long");
-    }else if(!specialChars.test(values.password)){
-        error.password=toast.error("Password Must Have Special Character");
+    if (!values.password) {
+        error.password = toast.error("Password Required...!");
+    } else if (values.password.includes(" ")) {
+        error.password = toast.error("Wrong Password...!");
+    } else if (values.password.length < 4) {
+        error.password = toast.error("Password Must Be More Than 4 Character Long");
+    } else if (!specialChars.test(values.password)) {
+        error.password = toast.error("Password Must Have Special Character");
     }
 
     return error;
@@ -47,14 +47,38 @@ function passwordVerify(error={},values){
 
 // validate reset password
 
-export async function resetPasswordValidation(values){
-    const error= passwordVerify({},values);
-    
-    if(values.password !== values.confirm_pwd){
-        error.exist =toast.error("Password not match..");
+export async function resetPasswordValidation(values) {
+    const error = passwordVerify({}, values);
+
+    if (values.password !== values.confirm_pwd) {
+        error.exist = toast.error("Password not match..");
     }
 
     return error;
-} 
+}
 
+
+// validate register form
+
+export async function registerValidation(values) {
+    const errors = usernameVerify({}, values);
+    passwordVerify(errors, values);
+    emailVerify(errors, values);
+
+    return errors;
+}
+
+// validate email
+
+function emailVerify(error = {}, values) {
+    if (!values.email) {
+        error.email = toast.error("Email Required...!");
+    } else if (values.email.includes(" ")) {
+        error.email = toast.error("Wrong Email...!");
+    } else if (!/[`~!@#$%^&*()-_+{}[\]\\|,.//?;':"]/.test(values.email)) {
+        error.email = toast.error("Invalid Email address...!");
+    }
+
+    return error;
+}
 
