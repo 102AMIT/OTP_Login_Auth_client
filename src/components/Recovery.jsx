@@ -15,7 +15,6 @@ const Recovery = () => {
   useEffect(() => {
     console.log("useeffect");
     generateOTP(username).then((OTP) => {
-      console.log(OTP)
 
       if (OTP) return toast.success("OTP has been sent to your email")
 
