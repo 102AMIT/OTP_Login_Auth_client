@@ -1,30 +1,37 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
 import style from '../styles/Username.module.css'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 // formik use for validate the userdata in form 
 import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate'
 import convertToBase64 from '../helper/convertImg';
 import avatar from '../assets/avatar.jpg'
-
+import { register } from '../helper/helper';
 
 const Register = () => {
 
+  const navigate = useNavigate();
   const [file, setFile] = useState()
 
   const formik = useFormik({
     initialValues: {
-      email: 'demo@xyz.com',
-      username: 'example123',
-      password: ''
+      email: 'amit@xyz.com',
+      username: 'Amit',
+      password: '1234'
     },
     validate: registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async values => {
       values = await Object.assign(values, { profile: file || '' })
-      console.log(values);
+      let registerPromise = register(values)
+      toast.promise(registerPromise, {
+        loading: 'Creating...',
+        success: <b>Register Successfully...!</b>,
+        error: <b>Could Not Register</b>
+      });
+      registerPromise.then(function (){navigate('/')});
     }
   })
 
@@ -51,7 +58,7 @@ const Register = () => {
               <label htmlFor="profile">
                 <img className={style.profile_img} src={file || avatar} alt="avater" />
               </label>
-              <input type="file" id="profile" name='profile' onChange={onUpload}/>
+              <input type="file" id="profile" name='profile' onChange={onUpload} />
             </div>
             <div className="textbox flex flex-col items-center gap-6">
               <input {...formik.getFieldProps('email')} type="email" className={style.textbox} placeholder='Email' />
