@@ -16,9 +16,9 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: 'amit@xyz.com',
-      username: 'Amit',
-      password: '1234'
+      email: '',
+      username: '',
+      password: ''
     },
     validate: registerValidation,
     validateOnBlur: false,

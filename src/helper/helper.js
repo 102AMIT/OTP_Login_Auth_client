@@ -43,7 +43,7 @@ export async function register(credentials) {
 }
 
 /* Login function */
-export async function verifyPassword(username, password) {
+export async function verifyPassword({username, password}) {
     try {
         if (username) {
             const { data } = await axios.post(`/api/login`, { username, password });
