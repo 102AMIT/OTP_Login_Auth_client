@@ -1,7 +1,7 @@
 import axios from "axios";
+axios.defaults.baseURL='http://localhost:8000/';
 
 /* Make api request */
-axios.defaults.baseURL=process.env.REACT_APP_SERVER_DOMAIN;
 
 /* authenticate function */
 export async function authenticate(username) {
@@ -31,7 +31,7 @@ export async function register(credentials) {
         let { username, email } = credentials;
 
         /* send email */
-        if (status == 201) {
+        if (status === 201) {
             await axios.post(`/api/registerMail`, { username, userEmail: email, text: message })
         }
 
@@ -42,7 +42,7 @@ export async function register(credentials) {
 }
 
 /* Login function */
-export async function verifyPassword(user, password) {
+export async function verifyPassword(username, password) {
     try {
         if (username) {
             const { data } = await axios.post(`/api/login`, { username, password });
