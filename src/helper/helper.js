@@ -1,7 +1,18 @@
 import axios from "axios";
-axios.defaults.baseURL='http://localhost:8000/';
+import jwt_decode from "jwt-decode";
+axios.defaults.baseURL = 'http://localhost:8000/';
 
 /* Make api request */
+
+
+/* TO get username from token */
+export async function getUsername() {
+    const token = localStorage.getItem('token');
+    if (!token) return Promise.reject("Can't find token");
+    // if we want get back the user info from token then we need to install jwt decode for decode this token
+    let decode=jwt_decode(token);
+    return decode;
+}
 
 /* authenticate function */
 export async function authenticate(username) {
@@ -27,7 +38,7 @@ export async function getUser({ username }) {
 /* register user function */
 export async function register(credentials) {
     try {
-        
+
         const { data: { message }, status } = await axios.post(`/api/register`, credentials)
         let { username, email } = credentials;
 
@@ -43,7 +54,7 @@ export async function register(credentials) {
 }
 
 /* Login function */
-export async function verifyPassword({username, password}) {
+export async function verifyPassword({ username, password }) {
     try {
         if (username) {
             const { data } = await axios.post(`/api/login`, { username, password });
@@ -101,9 +112,9 @@ export async function verifyOTP({ username, code }) {
 
 export async function resetPassword({ username, password }) {
     try {
-        const {data, status } = await axios.put('/api/resetPassword',{username,password});
+        const { data, status } = await axios.put('/api/resetPassword', { username, password });
         return Promise.resolve({ data, status });
-    }catch (error) {
+    } catch (error) {
         return Promise.reject({ error });
     }
 }
