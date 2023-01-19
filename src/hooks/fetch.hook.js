@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getUsername } from "../helper/helper";
-axios.defaults.baseURL = 'http://localhost:8000/';
+axios.defaults.baseURL = 'https://login-auth-api.onrender.com/';
 /* custom hook */
 export default function useFetch(query) {
     const [getData, setData] = useState({ isLoading: false, apiData: undefined, status: null, serverError: null });
