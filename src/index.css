@@ -12,5 +12,7 @@
 
 body{
     background: #dcdce6;
-    background-image: url('./assets/background.jpg');
+    height: 100%;
+    width: 100%;
 }
+

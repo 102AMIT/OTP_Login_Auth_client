@@ -1,5 +1,6 @@
 .glass{
     @apply h-3/6 w-2/6;
+    block-size: fit-content;
 }
 
 .profile_img{
