@@ -1,5 +1,5 @@
 .glass{
-    @apply h-3/6 w-2/6;
+    @apply h-5/6 w-2/6;
     block-size: fit-content;
 }
 
@@ -8,5 +8,5 @@
 }
 
 .textbox{
-    @apply w-3/4;
+    @apply w-2/4;
 }
